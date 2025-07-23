@@ -5,24 +5,34 @@ const asyncHandler = require("express-async-handler");
 
 const authMiddleware = asyncHandler(async (req, res, next) => {
   let token;
-  if (req?.headers?.authorization?.startsWith("Bearer")) {
+
+  // 1. Check for Bearer Token
+  if (req.headers.authorization?.startsWith("Bearer ")) {
     token = req.headers.authorization.split(" ")[1];
 
     try {
-      if (token) {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        // console.log(decoded);
-        const user = await User.findById(decoded?.id);
-        req.user = user;
-        next();
+      // 2. Verify JWT
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+      // 3. Find user and attach to request
+      const user = await User.findById(decoded?.id).select("_id email role");
+
+      if (!user) {
+        return res.status(401).json({ message: "User not found" });
       }
-    } catch (error) {
-      throw new Error("Not Authorized token expired,Please Login again");
+
+      req.user = user;
+      next();
+    } catch (err) {
+      console.error("JWT Auth Error:", err); // Add this for debugging
+      return res.status(401).json({ message: "Not authorized, token failed" });
     }
   } else {
-    throw new Error("THere is no token attached to header");
+    return res.status(401).json({ message: "No token provided" });
   }
 });
+
+
 
 const isAdmin = asyncHandler(async (req, res, next) => {
   const { email } = req.user;

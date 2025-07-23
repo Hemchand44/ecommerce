@@ -8,7 +8,12 @@ export const getAllProducts = createAsyncThunk(
     try {
       return await productSevice.getProducts(data);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+     const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
@@ -19,7 +24,12 @@ export const getAProduct = createAsyncThunk(
     try {
       return await productSevice.getSingleProduct(id);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
@@ -30,10 +40,16 @@ export const addToWishlist = createAsyncThunk(
     try {
       return await productSevice.addToWishlist(prodId);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
+
 
 const productState = {
   product: "",
@@ -49,7 +65,12 @@ export const addRating = createAsyncThunk(
     try {
       return await productSevice.rateProduct(data);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );

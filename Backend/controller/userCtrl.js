@@ -361,17 +361,28 @@ const userCart = asyncHandler(async (req, res) => {
 });
 
 const getUserCart = asyncHandler(async (req, res) => {
-  const { _id } = req.user;
-  validateMongoDbId(_id);
+  const user = req.user;
+
+  if (!user || !user._id) {
+    return res.status(401).json({ message: "Unauthorized: User not found in request" });
+  }
+
+  const userId = user._id;
+
   try {
-    const cart = await Cart.find({ userId: _id })
+    validateMongoDbId(userId);
+
+    const cart = await Cart.find({ userId })
       .populate("productId")
       .populate("color");
-    res.json(cart);
+
+    return res.status(200).json(cart);
   } catch (error) {
-    throw new Error(error);
+    console.error("getUserCart Error:", error);
+    return res.status(500).json({ message: "Failed to get cart", error: error.message });
   }
 });
+
 
 const removeProductFromCart = asyncHandler(async (req, res) => {
   const { _id } = req.user;

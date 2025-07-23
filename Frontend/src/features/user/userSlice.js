@@ -8,7 +8,12 @@ export const registerUser = createAsyncThunk(
     try {
       return await authService.register(userData);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
@@ -19,7 +24,12 @@ export const loginUser = createAsyncThunk(
     try {
       return await authService.login(userData);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+     const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
@@ -30,7 +40,12 @@ export const getuserProductWishlist = createAsyncThunk(
     try {
       return await authService.getUserWislist();
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
@@ -41,7 +56,12 @@ export const addProdToCart = createAsyncThunk(
     try {
       return await authService.addToCart(cartData);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
@@ -52,7 +72,12 @@ export const getUserCart = createAsyncThunk(
     try {
       return await authService.getCart(data);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
@@ -63,7 +88,12 @@ export const deleteUserCart = createAsyncThunk(
     try {
       return await authService.emptyCart(data);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
@@ -74,7 +104,12 @@ export const getOrders = createAsyncThunk(
     try {
       return await authService.getUserOrders();
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
@@ -85,7 +120,12 @@ export const deleteCartProduct = createAsyncThunk(
     try {
       return await authService.removeProductFromCart(data);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
@@ -96,7 +136,12 @@ export const createAnOrder = createAsyncThunk(
     try {
       return await authService.createOrder(orderDetail);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
@@ -107,7 +152,12 @@ export const updateCartProduct = createAsyncThunk(
     try {
       return await authService.updateProductFromCart(cartDetail);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
@@ -118,7 +168,12 @@ export const updateProfile = createAsyncThunk(
     try {
       return await authService.updateUser(data);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
@@ -129,7 +184,12 @@ export const forgotPasswordToken = createAsyncThunk(
     try {
       return await authService.forgotPasswordToken(data);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );
@@ -140,7 +200,12 @@ export const resetPassword = createAsyncThunk(
     try {
       return await authService.resetPass(data);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+     const serializableError = {
+        message: error?.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      };
+      return thunkAPI.rejectWithValue(serializableError);
     }
   }
 );

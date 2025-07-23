@@ -2,13 +2,18 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { blogService } from "./blogService";
 
-export const getAllBlogs = createAsyncThunk("blogs/get", async (thunkAPI) => {
-  try {
-    return await blogService.getBlogs();
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+
+export const getAllBlogs = createAsyncThunk(
+  "blogs/get",
+  async (_, thunkAPI) => {
+    try {
+      const response = await blogService.getBlogs();
+      return response.data; // ✅ return only the actual data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    }
   }
-});
+);
 
 export const getABlog = createAsyncThunk("blog/get", async (id, thunkAPI) => {
   try {
